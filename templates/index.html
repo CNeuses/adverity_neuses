@@ -1,0 +1,809 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Adverity Coding Challenge - Submission by Carsten Neuses</title>
+
+    <!-- Latest compiled and minified CSS -->
+      {% load static %}
+      {% csrf_token %}
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Adverity Coding Project</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/task1">Solution Task 1</a></li>
+            <li><a href="/task2">Solution Task 2</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+    <div id="root" class="container">
+
+    </div><!-- /.container -->
+
+
+    <script type="text/babel">
+            const rootElement = document.getElementById('root');
+            class Heading extends React.Component {
+            render() {
+                return (
+                <div className="title">
+                <h2>This is running on Django. - Submission by Carsten Neuses</h2>
+                  <ul>
+                    <li >Select one page from the header to view my solutions</li>
+                  </ul>
+                </div>
+              );
+              }
+            }
+        // Create a function to wrap up your component
+        function App(){
+          return(
+          <div>
+            <Heading/>
+          </div>
+          )
+        }
+
+        ReactDOM.render(<App />, rootElement)
+        </script>
+
+
+    <!-- Scripts
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script type="application/javascript" src="https://unpkg.com/react@16.0.0/umd/react.production.min.js"></script>
+    <script type="application/javascript" src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js"></script>
+    <script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+
+    <script>
+        function KeywordChartRefresh(keyword) {
+            document.getElementById("navbar-loader").style.display = "inline-block";
+            try {
+            $.getJSON('/ajax_financialworld_index_chart/?series='+ series + '&' + 'category=' + category  + '&' + 'timeframe=' + timeframe, function (ajax_json_response) {
+                if (timeframe == 'intraday') {
+                    if (series == 'major' || series == 'all') {
+                        option = {
+                             legend: {
+                                type: 'scroll',
+                                orient: 'horizontal',
+                                right: 10,
+                                 left: 80,
+                                top: 10,
+                                bottom: 30,
+                            },
+                            calculable: true,
+                            dataZoom: [{
+                            type: 'inside',
+                            start: 00,
+                            end: 100,
+                            }, {
+                            start: 0,
+                            end: 100,
+                            handleSize: '100%',
+                            handleStyle: {
+                                color: '#fff',
+
+                                shadowBlur: 1,
+                                shadowColor: 'rgba(0, 0, 0, 0.55)',
+                                shadowOffsetX: 1,
+                                shadowOffsetY: 1
+                            }
+                            }],
+                            tooltip: {
+                                backgroundColor: 'rgba(11, 108, 168, 0.87)',
+                                borderWidth: 0,
+                                borderRadius: 1,
+                                hideDelay: 300,
+                                trigger: 'axis',
+                                width: 100,
+                                textStyle: {
+                                    fontSize: 12,
+                                },
+                                axisPointer: {
+                                    type: 'shadow',
+                                    transitionDuration: 2.2,
+                                    lineStyle: {
+                                        type: 'dotted',
+                                    },
+                                    label: {
+                                        backgroundColor: '#2d7bb3'
+                                    },
+                                },
+
+                                position: function (pos, params, el, elRect, size) {
+                                    var obj = {top: 45};
+                                    obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 1.5)]] = 50;
+                                    return obj;
+                                },
+
+                            },
+                            grid: {
+                                x: 40,
+                                y: 40,
+                                x2: 20,
+                                y2: 80,
+                            },
+                            brush: {
+                                xAxisIndex: 'all',
+                                brushLink: 'none',
+                                brushMode: 'multiple',
+                                transformable: true,
+                            },
+                            xAxis: {
+                                type: 'category',
+                                boundaryGap: false,
+                                data: ajax_json_response.mainchart.timestamps,
+                            },
+                            yAxis: [{
+                                name: 'Change %',
+                                type: 'value',
+                                boundaryGap: [0.01, 0.01],
+                                scale: true,
+                                splitLine: {
+                                    show: true,
+                                    lineStyle: {
+                                        color: '#e3e3e3',
+                                    }
+                                },
+                            },
+                            ],
+                            animationDuration: 200,
+                            series: [{
+                                 name: 'Open (100%)',
+                                type: 'line',
+                                symbol: 'none',
+                                data : Array(ajax_json_response.mainchart.timestamps.length-1).fill(100),
+                                label :{
+                                     show: true,
+                                     position: [20, '95%'],
+                                     formatter: 'Close Previous Session(100%)',
+                                },
+                                lineStyle:{
+                                     color: '#2b2b2b',
+                                     type: 'dashed',
+                                    width: 1.5,
+                                }
+                            }],
+                        }
+
+                        for (var i = 0, len = ajax_json_response.mainchart.data.length; i < len; i++) {
+                            option.series.push({
+                                type: 'line',
+                                name: ajax_json_response.mainchart.data[i].shortname,
+                                data: ajax_json_response.mainchart.data[i].yAxisValues,
+                                hoverAnimation: true,
+                                symbol: 'roundRect',
+                                symbolSize: 1,
+                                showLabel: false,
+                                label :{
+                                     normal: {
+                                         show: false,
+                                         position: [20, '100%'],
+                                     },
+                                    emphasis: {
+                                         show: false,
+                                         position: [10, '100%'],
+                                         formatter: '{a} : {c}',
+                                         backgroundColor: 'rgba(22, 118, 177, 0.81)',
+                                         padding: 4,
+                                     }
+                                },
+                                smooth: false,
+                                itemStyle: {
+                                },
+                                connectNulls: true,
+                                clipOverflow: true,
+                                lineStyle: {
+                                   width: 1.5,
+                                },
+                                //showSymbol: true,
+                            });
+                        }
+                        index_chart_1.clear();
+                        index_chart_1.setOption(option);
+                        index_chart_1.hideLoading();
+                    }
+                    else if (series != 'major' && series != 'all') {
+                        // single index
+
+                        if (ajax_json_response.mainchart.data[0].yAxisValues.length > 2) {
+                            var index_timestamps = ajax_json_response.mainchart.timestamps.concat(["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]);
+                            var shortname = ajax_json_response.mainchart.data[0].shortname;
+                            var index_data = ajax_json_response.mainchart.data[0].yAxisValues;
+                            option = {
+                                calculable: true,
+                                tooltip: {
+                                    backgroundColor: 'rgba(11, 108, 168, 0.87)',
+                                    borderWidth: 0,
+                                    borderRadius: 1,
+                                    hideDelay: 300,
+                                    trigger: 'axis',
+                                    textStyle: {
+                                        fontSize: 12,
+                                    },
+                                    axisPointer: {
+                                        type: 'cross',
+                                        transitionDuration: 2.2,
+                                        lineStyle: {
+                                            type: 'dotted',
+                                        },
+                                        label: {
+                                            backgroundColor: '#2d7bb3'
+                                        },
+                                    },
+                                    formatter: function (params) {
+                                        return 'Current value of ' + '{{ Symbol }}' + ' at ' + params[0].name +
+                                            '<br/>' + params[0].marker + params[0].value + ' USD';
+                                    },
+                                    position: function (pos, params, el, elRect, size) {
+                                        var obj = {top: 45};
+                                        obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 1.5)]] = 50;
+                                        return obj;
+                                    },
+
+                                },
+                                grid: {
+                                    x: 40,
+                                    y: 40,
+                                    x2: 20,
+                                    y2: 80,
+                                },
+                                brush: {
+                                    xAxisIndex: 'all',
+                                    brushLink: 'none',
+                                    brushMode: 'multiple',
+                                    transformable: true,
+                                },
+                                xAxis: {
+                                    type: 'category',
+                                    boundaryGap: false,
+                                    data: index_timestamps,
+                                },
+                                yAxis: [{
+                                    name: 'Change in %',
+                                    type: 'value',
+                                    boundaryGap: [0.01, 0.01],
+                                    scale: true,
+                                    splitLine: {
+                                        show: true,
+                                        lineStyle: {
+                                            color: '#e3e3e3',
+                                        }
+                                    },
+                                },
+                                ],
+                                animationDuration: 200,
+                                series: [{
+                                    name: 'InvisibleSeries',
+                                    type: 'custom',
+                                    data: [],
+                                    markLine: {
+                                        name: 'Open3',
+                                        symbol: (index_data[0] >= index_data[1]) ? ['none', 'arrow'] : ['arrow', 'none'],
+                                        symbolSize: 6,
+                                        lineStyle: {
+                                            normal: {
+                                                color: (index_data[0] >= index_data[1]) ? 'red' : 'green',
+                                                width: 2,
+                                                type: 'solid',
+                                            },
+                                            emphasis: {
+                                                type: 'solid',
+                                            }
+                                        },
+                                        label: {
+                                            show: true,
+                                            position: 'middle',
+                                            formatter: 'Pre: ' + ((index_data[1] - index_data[0]) / index_data[1] * 100.0).toFixed(2) + '%',
+                                        },
+                                        itemStyle: {
+                                            symbol: false,
+                                            normal: {
+                                                type: 'solid',
+                                                color: (index_data[0] >= index_data[1]) ? 'red' : 'green',
+                                            }
+                                        },
+                                        data: [[
+                                            {
+                                                name : "Yesterday's Close",
+                                                xAxis : index_timestamps.length - Math.max(Math.floor(index_timestamps.length/26),5),
+                                                yAxis : Math.max(index_data[1], index_data[0]),
+                                            },{
+                                                name :"Yesterday's Close",
+                                                xAxis: index_timestamps.length - Math.max(Math.floor(index_timestamps.length/26),5),
+                                                yAxis : Math.min(index_data[1], index_data[0]),
+                                            },
+                                        ]]
+                                    }
+                                }, {
+                                    name: 'InvisibleSeries2',
+                                    type: 'custom',
+                                    data: [],
+                                    markLine: {
+                                        name: 'Open2',
+                                        symbol: (index_data[1] >= index_data[index_data.length - 1]) ? ['none', 'arrow'] : ['arrow', 'none'],
+                                        symbolSize: 6,
+                                        lineStyle: {
+                                            normal: {
+                                                color: (index_data[1] >= index_data[index_data.length - 1]) ? 'red' : 'green',
+                                                width: 2,
+                                                type: 'solid',
+                                            },
+                                            emphasis: {
+                                                type: 'solid',
+                                            }
+                                        },
+                                        label: {
+                                            show: true,
+                                            position: 'middle',
+                                            formatter: 'Reg: ' + ((index_data[index_data.length - 1] - index_data[1]) / index_data[index_data.length - 1] * 100.0).toFixed(2) + '%',
+
+                                        },
+                                        itemStyle: {
+                                            symbol: false,
+                                            normal: {
+                                                type: 'solid',
+                                            }
+                                        },
+                                        data: [[
+                                            {
+                                                name: "Yesterday's Close",
+                                                xAxis: index_timestamps.length - 2,
+                                                yAxis: Math.max(index_data[1], index_data[index_data.length - 1]),
+                                            }, {
+                                                name: "Yesterday's Close",
+                                                xAxis: index_timestamps.length - 2,
+                                                yAxis: Math.min(index_data[1], index_data[index_data.length - 1]),
+                                            },
+                                        ]]
+                                    }
+                                }, {
+                                    name: 'InvisibleSeries3',
+                                    type: 'custom',
+                                    data: [],
+                                    markLine: {
+                                        name: 'Open2',
+                                        symbol: 'none',
+                                        lineStyle: {
+                                            normal: {
+                                                color: '#1d1d3a',
+                                                width: 0.5,
+                                                type: 'solid',
+                                            },
+                                            emphasis: {
+                                                type: 'solid',
+                                            }
+                                        },
+                                        label: {
+                                            show: true,
+                                            position: 'middle',
+                                            formatter: 'Previous Close: ' + index_data[0].toString(),
+                                        },
+                                        itemStyle: {
+                                            symbol: false,
+                                            normal: {
+                                                color: '#1d1d3a',
+                                            }
+                                        },
+                                        data: [[
+                                            {
+                                                name: "Previous Close",
+                                                xAxis: 0,
+                                                yAxis: index_data[0]
+                                            }, {
+                                                name: "Previous Close",
+                                                xAxis: index_timestamps.length - 2,
+                                                yAxis: index_data[0]
+                                            },
+                                        ]]
+                                    }
+                                }, {
+                                    name: 'Stock Price',
+                                    type: 'line',
+                                    connectNulls: true,
+                                    smooth: false,
+                                    symbol: 'none',
+                                    sampling: 'average',
+                                    lineStyle: {
+                                       width: 1.5,
+                                    },
+                                    itemStyle: {
+                                        normal: {
+                                            color: '#0077c6'
+                                        }
+                                    },
+                                    areaStyle: {
+                                        normal: {
+                                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                                offset: 0,
+                                                color: '#1155a9'
+                                            }, {
+                                                offset: 1,
+                                                color: '#ecf6fd'
+                                            }])
+                                        }
+                                    },
+                                    data: [index_data[1]].concat(index_data),
+                                    markLine: {
+                                        name: 'Open',
+                                        symbol: 'none',
+                                        lineStyle: {
+                                            normal: {
+                                                color: '#1d1d3a',
+                                                width: 0.5,
+                                                type: 'solid',
+                                            },
+                                            emphasis: {
+                                                type: 'solid',
+                                            }
+                                        },
+                                        label: {
+                                            show: true,
+                                            position: 'middle',
+                                            //formatter: '{b}: ' + function (index_data[1]){ try {index_data[1].toString() } catch{},
+                                        },
+                                        itemStyle: {
+                                            symbol: false,
+                                            normal: {
+                                                color: '#0a0a15',
+                                            }
+                                        },
+                                        data: [[
+                                            {
+                                                name: "Open",
+                                                xAxis: 0,
+                                                yAxis: index_data[1]
+                                            }, {
+                                                name: "Open",
+                                                xAxis: index_timestamps.length - 2,
+                                                yAxis: index_data[1]
+                                            },
+                                        ]]
+                                    },
+                                    markPoint: {
+                                        symbolSize: 19,
+                                        itemStyle: {
+                                            normal: {
+                                                label: {show: true, position: 'top'}
+                                            },
+                                        },
+                                        data: [
+                                            {type: 'max', name: 'Stock Price Maximum'},
+                                        ]
+                                    },
+                                }],
+                            }
+                        } else {
+                            option = {
+
+                                title: {
+                                    show: true,
+                                    textStyle: {
+                                        color: '#868686'
+                                    },
+                                    text: 'This data is currently not available.',
+                                    left: 'center',
+                                    top: 'center'
+                                },
+                                xAxis: {},
+                                yAxis: {},
+                            };
+                        }
+                        index_chart_1.clear();
+                        index_chart_1.setOption(option);
+                        index_chart_1.hideLoading();
+                    }
+                }
+                else {
+                    if (series == 'major' || series == 'all') {
+                        option = {
+                            calculable: true,
+                            legend: {
+                                type: 'scroll',
+                                orient: 'horizontal',
+                                right: 10,
+                                 left: 80,
+                                top: 10,
+                                bottom: 30,
+                            },
+                            dataZoom: [{
+                            type: 'inside',
+                            start: 00,
+                            end: 100,
+                            }, {
+                            start: 0,
+                            end: 100,
+                            handleSize: '100%',
+                            handleStyle: {
+                                color: '#fff',
+
+                                shadowBlur: 1,
+                                shadowColor: 'rgba(0, 0, 0, 0.55)',
+                                shadowOffsetX: 1,
+                                shadowOffsetY: 1
+                            }
+                            }],
+                            tooltip: {
+                                backgroundColor: 'rgba(11, 108, 168, 0.87)',
+                                borderWidth: 0,
+                                borderRadius: 1,
+                                hideDelay: 300,
+                                trigger: 'axis',
+                                textStyle: {
+                                    fontSize: 12,
+                                },
+                                axisPointer: {
+                                    type: 'cross',
+                                    transitionDuration: 2.2,
+                                    lineStyle: {
+                                        type: 'dotted',
+                                    },
+                                    label: {
+                                        backgroundColor: '#2d7bb3'
+                                    },
+                                },
+                                /*
+                                formatter: function (params) {
+                                    return 'Current value of ' + '' + ' at ' + params[0].name +
+                                        '<br/>' + params[0].marker + params[0].value + ' USD';
+                                },
+                                */
+                                position: function (pos, params, el, elRect, size) {
+                                    var obj = {top: 45};
+                                    obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 1.5)]] = 50;
+                                    return obj;
+                                },
+
+                            },
+                            grid: {
+                                x: 40,
+                                y: 40,
+                                x2: 20,
+                                y2: 80,
+                            },
+                            brush: {
+                                xAxisIndex: 'all',
+                                brushLink: 'none',
+                                brushMode: 'multiple',
+                                transformable: true,
+                            },
+                            xAxis: {
+                                type: 'category',
+                                boundaryGap: false,
+                                data: ajax_json_response.mainchart.timestamps,
+                            },
+                            yAxis: [{
+                                name: 'Change in %',
+                                type: 'value',
+                                boundaryGap: [0.01, 0.01],
+                                scale: true,
+                                splitLine: {
+                                    show: true,
+                                    lineStyle: {
+                                        color: '#e3e3e3',
+                                    }
+                                },
+                            },
+                            ],
+                            animationDuration: 200,
+                            series: [],
+                        }
+
+                        for (var i = 0, len = ajax_json_response.mainchart.data.length; i < len; i++) {
+                            option.series.push({
+                                type: 'line',
+                                name: ajax_json_response.mainchart.data[i].shortname,
+                                data: ajax_json_response.mainchart.data[i].yAxisValues,
+                                hoverAnimation: true,
+                                symbol: 'roundRect',
+                                symbolSize: 2,
+                                showLabel: true,
+                                smooth: false,
+                                connectNulls: true,
+                                clipOverflow: true,
+                                lineStyle: {
+                                   width: 1.5,
+                                },
+                                //showSymbol: true,
+                            });
+                        }
+                        index_chart_1.clear();
+                        index_chart_1.setOption(option);
+                        index_chart_1.hideLoading();
+                    }
+                    else if (series != 'major' && series != 'all') {
+                        // single index
+
+                        if (ajax_json_response.mainchart.data[0].yAxisValues.length > 2) {
+                            var index_timestamps = ajax_json_response.mainchart.timestamps.concat([""]);
+                            var shortname = ajax_json_response.mainchart.data[0].shortname;
+                            var index_data = ajax_json_response.mainchart.data[0].yAxisValues;
+                            option = {
+                                calculable: true,
+                                dataZoom: [{
+                                type: 'inside',
+                                start: 00,
+                                end: 100,
+                                }, {
+                                start: 0,
+                                end: 100,
+                                handleSize: '100%',
+                                handleStyle: {
+                                    color: '#fff',
+
+                                    shadowBlur: 1,
+                                    shadowColor: 'rgba(0, 0, 0, 0.55)',
+                                    shadowOffsetX: 1,
+                                    shadowOffsetY: 1
+                                }
+                                }],
+                                tooltip: {
+                                    backgroundColor: 'rgba(11, 108, 168, 0.87)',
+                                    borderWidth: 0,
+                                    borderRadius: 1,
+                                    hideDelay: 300,
+                                    trigger: 'axis',
+                                    textStyle: {
+                                        fontSize: 12,
+                                    },
+                                    axisPointer: {
+                                        type: 'cross',
+                                        transitionDuration: 2.2,
+                                        lineStyle: {
+                                            type: 'dotted',
+                                        },
+                                        label: {
+                                            backgroundColor: '#2d7bb3'
+                                        },
+                                    },
+                                    /*
+                                    formatter: function (params) {
+                                        return 'Current value of ' + '' + ' at ' + params[0].name +
+                                            '<br/>' + params[0].marker + params[0].value + ' USD';
+                                    },
+                                    */
+                                    position: function (pos, params, el, elRect, size) {
+                                        var obj = {top: 45};
+                                        obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 1.5)]] = 50;
+                                        return obj;
+                                    },
+
+                                },
+                                grid: {
+                                    x: 40,
+                                    y: 40,
+                                    x2: 20,
+                                    y2: 80,
+                                },
+                                brush: {
+                                    xAxisIndex: 'all',
+                                    brushLink: 'none',
+                                    brushMode: 'multiple',
+                                    transformable: true,
+                                },
+                                xAxis: {
+                                    type: 'category',
+                                    boundaryGap: false,
+                                    data: index_timestamps,
+                                },
+                                yAxis: [{
+                                    name: 'Change in %',
+                                    type: 'value',
+                                    boundaryGap: [0.01, 0.01],
+                                    scale: true,
+                                    splitLine: {
+                                        show: true,
+                                        lineStyle: {
+                                            color: '#e3e3e3',
+                                        }
+                                    },
+                                },
+                                ],
+                                animationDuration: 200,
+                                series: [{
+                                    name: 'Adjusted Close',
+                                    type: 'line',
+                                    smooth: false,
+                                    symbol: 'none',
+                                    connectNulls: true,
+                                    sampling: 'average',
+                                    lineStyle: {
+                                       width: 1.5,
+                                    },
+                                    itemStyle: {
+                                        normal: {
+                                            color: '#0077c6'
+                                        }
+                                    },
+                                    areaStyle: {
+                                        normal: {
+                                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                                offset: 0,
+                                                color: '#1155a9'
+                                            }, {
+                                                offset: 1,
+                                                color: '#ecf6fd'
+                                            }])
+                                        }
+                                    },
+                                    data: index_data,
+                                    markPoint: {
+                                        symbolSize: 19,
+                                        itemStyle: {
+                                            normal: {
+                                                label: {show: true, position: 'top'}
+                                            },
+                                        },
+                                        data: [
+                                            {type: 'max', name:  'Maximum'},
+                                        ]
+                                    },
+                                }],
+                            }
+                        } else {
+                            option = {
+                                title: {
+                                    show: true,
+                                    textStyle: {
+                                        color: '#868686'
+                                    },
+                                    text: 'This data is currently not available.',
+                                    left: 'center',
+                                    top: 'center'
+                                },
+                                xAxis: {},
+                                yAxis: {},
+                            };
+                        }
+                        index_chart_1.clear();
+                        index_chart_1.setOption(option);
+                        index_chart_1.hideLoading();
+                    }
+                }
+            });
+            }
+            catch (e){
+                    console.error(e, e.stack);
+                }
+            document.getElementById("navbar-loader").style.display = "none";
+        };
+    </script>
+  </body>
+</html>
